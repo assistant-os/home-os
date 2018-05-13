@@ -1,0 +1,27 @@
+{
+  "name": "home-os",
+  "version": "1.0.0",
+  "description": "Add new commands optimized for home for assistant-os",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/assistant-os/home-os.git"
+  },
+  "keywords": [
+    "home"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/assistant-os/home-os/issues"
+  },
+  "homepage": "https://github.com/assistant-os/home-os#readme",
+  "dependencies": {
+    "later": "^1.2.0",
+    "natural-script": "^0.3.1",
+    "randomstring": "^1.1.5"
+  }
+}
