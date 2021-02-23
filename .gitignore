@@ -1,0 +1,4 @@
+datasets
+activities.txt
+.env.private
+node_modules

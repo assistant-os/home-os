@@ -1,5 +1,8 @@
 # home-os
 
-> Module for [assistant-os](https://github.com/assistant-os/assistant-os).
+This smart home system is composed of a camera and a hub
 
-This module manages the tasks at home like alarm clock, shopping list, etc
+- [Camera](./camera/README.md)
+- [Hub](./hub/README.md)
+
+
