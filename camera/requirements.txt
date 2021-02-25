@@ -1,4 +1,4 @@
 opencv-python
 imutils
 numpy
-imutils
+picamera[array]
