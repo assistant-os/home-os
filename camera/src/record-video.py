@@ -17,5 +17,3 @@ camera.capture(rawCapture, format="bgr")
 image = rawCapture.array
 
 cv2.imwrite('image.jpg', image)
-
-cv2.waitKey(0)

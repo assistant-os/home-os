@@ -37,6 +37,12 @@ The camera for using raspberry pi.
 10. Setup camera: `sudo raspi-config` (https://www.raspberrypi.org/forums/viewtopic.php?t=198118)
 11. Take a photo: `raspistill -o image.jpg`
 12. Download the image on the computer `scp pi@raspberrypi.home:~/image.jpg .`
+13. `sudo apt-get install libatlas-base-dev`
+14. `sudo apt-get install libsm6 libxext6 libxrender1`
+15. `sudo apt-get install build-essential libglib2.0-0 libsm6 libxext6 libxrender-dev`
+16. `sudo apt-get install libwebp-dev`
+17. `sudo apt-get install libtiff4`
+
 
 ## Equipment 
 
@@ -49,6 +55,7 @@ The camera for using raspberry pi.
 
 ## Tutorial & Litterature 
 
+- [OpenCV on raspberry pi](https://www.pyimagesearch.com/2019/09/16/install-opencv-4-on-raspberry-pi-4-and-raspbian-buster/)
 - [How to stream camera to computer](https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/)
 - [OpenCV and python on raspberry pi](https://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/)
 - https://www.pyimagesearch.com/2018/08/13/opencv-people-counter/

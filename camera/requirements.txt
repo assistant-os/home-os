@@ -2,3 +2,5 @@ opencv-python
 imutils
 numpy
 picamera[array]
+flask
+requests
