@@ -7,17 +7,21 @@ The camera is a device capturing realtime videos and doing image processing in p
 
 Once some changes are detected, a notification is send to the hub.
 
+
+# Setup & Installation
+
+```shell 
+sh ./scripts/setup.sh
+sh ./scripts/install.sh # may fail
+```
+
 ## Getting started
 
-```bash
+```shell
+python3 src/camera-stream.py --host 0.0.0.0 --port 8080
 
-python3 -m venv .env.private
-source .env.private/bin/activate
-
-python3 -m pip install -r requirements.txt
-
-python3 detection_video.py
 ```
+
 
 
 
@@ -55,13 +59,18 @@ The camera for using raspberry pi.
 
 ## Tutorial & Litterature 
 
+Camera with raspberry pi:
 - [OpenCV on raspberry pi](https://www.pyimagesearch.com/2019/09/16/install-opencv-4-on-raspberry-pi-4-and-raspbian-buster/)
-- [How to stream camera to computer](https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/)
+- [Stream video in http](https://www.pyimagesearch.com/2019/09/02/opencv-stream-video-to-web-browser-html-page/): useful to make video stream in http
+- [How to stream camera to computer](https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/) to use picamera
 - [OpenCV and python on raspberry pi](https://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/)
+
+Detect people:
+- https://www.pyimagesearch.com/2020/06/01/opencv-social-distancing-detector/
+
 - https://www.pyimagesearch.com/2018/08/13/opencv-people-counter/
 - https://github.com/Sid2697/Object-Detection-MobileNet/blob/master/README.md
 - https://arxiv.org/abs/1704.04861
-- [Stream video in http](https://www.pyimagesearch.com/2019/09/02/opencv-stream-video-to-web-browser-html-page/)
 - 
 ## Brainstorm 
 

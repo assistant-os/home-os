@@ -1,9 +1,22 @@
 <html>
-  <head>
-    <title>Pi Video Surveillance</title>
-  </head>
-  <body>
-    <h1>Pi Video Surveillance</h1>
-    <img src="{{ url_for('video_feed') }}">
-  </body>
+
+<head>
+  <title>Pi Video Surveillance</title>
+</head>
+
+<body>
+  <h1>Pi Video Surveillance</h1>
+  <img src="{{ url_for('video_feed') }}">
+  <button id="save">Save</button>
+  <script>
+    document.getElementById('save').addEventListener('click', () => {
+      fetch("{{ url_for('save') }}", {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      })
+        .then(response => response.json())
+        .then(data => console.log(data));
+    })
+  </script>
+</body>
+
 </html>

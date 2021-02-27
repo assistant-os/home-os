@@ -9,6 +9,7 @@ import imutils
 import time
 import cv2
 import os
+import numpy as np 
 
 # initialize the output frame and a lock used to ensure thread-safe
 # exchanges of the output frames (useful when multiple browsers/tabs
@@ -19,19 +20,17 @@ lock = threading.Lock()
 app = Flask(__name__)
 # initialize the video stream and allow the camera sensor to
 # warmup
-#vs = VideoStream(usePiCamera=1).start()
-vs = VideoStream(src=1).start()
+vs = VideoStream(usePiCamera=0).start()
+# vs = VideoStream(src=1).start()
 
 time.sleep(2.0)
-
-dirname = os.path.dirname(__file__)
 
 @app.route("/")
 def index():
 	# return the rendered template
 	return render_template("index.html")
 
-def detect_motion(frameCount):
+def detect_motion(frameCount, rotate):
 	# grab global references to the video stream, output frame, and
 	# lock variables
 	global vs, frame, lock
@@ -40,7 +39,9 @@ def detect_motion(frameCount):
 	while True:
 		# read the next frame from the video stream, resize it,
 		# convert the frame to grayscale, and blur it
-		frame = vs.read()
+		badFrame = vs.read()
+
+		frame = np.array(np.rot90(badFrame, k=2))
 		# grab the current timestamp and draw it on the frame
 		timestamp = datetime.datetime.now()
 		cv2.putText(frame, timestamp.strftime(
@@ -74,21 +75,32 @@ def video_feed():
 	return Response(generate(),
 		mimetype = "multipart/x-mixed-replace; boundary=frame")
 
+@app.route("/save", methods=['POST'])
+def save():
+	print("save")
+	cv2.imwrite('image.jpg', frame)
+	# return the response generated along with the specific media
+	# type (mime type)
+	return Response("{}",
+        status=200,
+        mimetype='application/json')
 
 # check to see if this is the main thread of execution
 if __name__ == '__main__':
 	# construct the argument parser and parse command line arguments
 	ap = argparse.ArgumentParser()
-	ap.add_argument("--host", type=str, required=True,
+	ap.add_argument("--host", type=str, default='0.0.0.0',
 		help="ip address of the device")
-	ap.add_argument("-o", "--port", type=int, required=True,
+	ap.add_argument("-o", "--port", type=int,default=8080,
 		help="ephemeral port number of the server (1024 to 65535)")
+	ap.add_argument("--rotate", type=int, default=180,
+		help="angle of rotation of the image")
 	ap.add_argument("-f", "--frame-count", type=int, default=32,
 		help="# of frames used to construct the background model")
 	args = vars(ap.parse_args())
 	# start a thread that will perform motion detection
 	t = threading.Thread(target=detect_motion, args=(
-		args["frame_count"],))
+		args["frame_count"],args["rotate"]))
 	t.daemon = True
 	t.start()
 	# start the flask app
