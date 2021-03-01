@@ -10,23 +10,6 @@ Once some changes are detected, a notification is send to the hub.
 
 # Setup & Installation
 
-```shell 
-sh ./scripts/setup.sh
-sh ./scripts/install.sh # may fail
-```
-
-## Getting started
-
-```shell
-python3 src/camera-stream.py --host 0.0.0.0 --port 8080
-
-```
-
-
-
-
-## Setup 
-
 The camera for using raspberry pi.
 
 1. [install Raspberry pi OS](https://www.raspberrypi.org/software/)
@@ -48,9 +31,33 @@ The camera for using raspberry pi.
 17. `sudo apt-get install libtiff4`
 
 
+
+```shell 
+sh ./scripts/setup.sh
+sh ./scripts/install.sh # may fail
+```
+
+- models
+
+
+## Getting started
+
+```shell
+python3 src/camera-stream.py --host 0.0.0.0 --port 8080
+
+```
+
 ## Equipment 
 
-- [Raspberry Pi B 4GB](https://www.amazon.ca/gp/product/B07W4JM192)
+### Rasberry pi 
+
+  Raspberry Pi 4 B: Broadcom BCM2711, Quad core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz
+
+- [Specifications](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/)
+- [How to buy](https://www.amazon.ca/gp/product/B07W4JM192)
+
+### Camera 
+
 - [Camera with night vision](https://www.amazon.ca/gp/product/B076KCZRDS)
 
 ## Datasets & algorithms 
@@ -67,9 +74,11 @@ Camera with raspberry pi:
 
 Detect people:
 
+- [How to use MobileNet](https://www.pyimagesearch.com/2017/09/11/object-detection-with-deep-learning-and-opencv/)
+- [Coco dataset](https://cocodataset.org/#home) used to train MobileNet
+
 - [How to use MobileNet](https://www.pyimagesearch.com/2018/08/13/opencv-people-counter/)
 
-- [Object detection](https://www.pyimagesearch.com/2017/09/11/object-detection-with-deep-learning-and-opencv/)
 
 - https://www.pyimagesearch.com/2020/06/01/opencv-social-distancing-detector/
 
