@@ -19,9 +19,9 @@ net = cv2.dnn.readNetFromCaffe(
 		os.path.join(dirname, '../models/MobileNetSSD_deploy.caffemodel'))
 
 CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
-           "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
-           "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
-           "sofa", "train", "tvmonitor"]
+					 "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
+					 "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
+					 "sofa", "train", "tvmonitor"]
 
 RED = (255, 0, 0)
 
@@ -39,41 +39,52 @@ vs = VideoStream(usePiCamera=0).start()
 
 time.sleep(2.0)
 
-def mat2gray(img):
-		A = np.double(img)
-		out = np.zeros(A.shape, np.double)
-		normalized = cv2.normalize(A, out, 1.0, 0.0, cv2.NORM_MINMAX)
-		return out
-
- # Add noise to the image
-
-
-def random_noise(image, mode='gaussian', seed=None, clip=True, **kwargs):
-		image = mat2gray(image)
-
-		mode = mode.lower()
-		if image.min() < 0:
-				low_clip = -1
-		else:
-				low_clip = 0
-		if seed is not None:
-				np.random.seed(seed=seed)
-
-		if mode == 'gaussian':
-				noise = np.random.normal(kwargs['mean'], kwargs['var'] ** 0.5,
-																 image.shape)
-				out = image + noise
-		if clip:
-				out = np.clip(out, low_clip, 1.0)
-
-		return out
-
-
-
 @app.route("/")
 def index():
 	# return the rendered template
 	return render_template("index.html")
+
+def detect_person(frame):
+	frame = imutils.resize(frame, width=512)
+	(h, w) = frame.shape[:2]
+	blob = cv2.dnn.blobFromImage(cv2.resize(frame, (512, 512)), 0.007843, (512, 512), 127.5)
+
+	# pass the blob through the network and obtain the detections and predictions
+	net.setInput(blob)
+	detections = net.forward()
+
+	nbPerson = 0
+	confidences = []
+
+	# loop over the detections
+	for i in np.arange(0, detections.shape[2]):
+		# extract the confidence (i.e., probability) associated with
+		# the prediction
+		confidence = detections[0, 0, i, 2]
+
+		# filter out weak detections by ensuring the `confidence` is
+		# greater than the minimum confidence
+		if confidence > args["confidence"]:
+			# extract the index of the class label from the
+			# `detections`, then compute the (x, y)-coordinates of
+			# the bounding box for the object
+			idx = int(detections[0, 0, i, 1])
+			box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+			(startX, startY, endX, endY) = box.astype("int")
+
+			if CLASSES[idx] == "person":
+				cv2.rectangle(frame, (startX, startY), (endX, endY), RED, 2)
+				nbPerson += 1
+				label = "{:.2f}%".format(confidence * 100)
+				y = startY - 15 if startY - 15 > 15 else startY + 15
+				cv2.putText(frame, label, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, RED, 2)
+
+
+		label = "{}".format(nbPerson)
+		cv2.putText(frame, label, (10, 20),
+								cv2.FONT_HERSHEY_SIMPLEX, 0.5, RED, 2)
+	
+	return frame
 
 def detect_motion(frameCount, rotate):
 	# grab global references to the video stream, output frame, and
@@ -87,47 +98,7 @@ def detect_motion(frameCount, rotate):
 		frame = vs.read()
 
 		frame = np.array(np.rot90(frame, k=2))
-		frame = imutils.resize(frame, width=512)
-
-		(h, w) = frame.shape[:2]
-		blob = cv2.dnn.blobFromImage(cv2.resize(frame, (512, 512)), 0.007843, (512, 512), 127.5)
-
-		# pass the blob through the network and obtain the detections and predictions
-		net.setInput(blob)
-		detections = net.forward()
-
-		nbPerson = 0
-		confidences = []
-
-		# loop over the detections
-		for i in np.arange(0, detections.shape[2]):
-				# extract the confidence (i.e., probability) associated with
-				# the prediction
-				confidence = detections[0, 0, i, 2]
-
-				# filter out weak detections by ensuring the `confidence` is
-				# greater than the minimum confidence
-				if confidence > args["confidence"]:
-						# extract the index of the class label from the
-						# `detections`, then compute the (x, y)-coordinates of
-						# the bounding box for the object
-						idx = int(detections[0, 0, i, 1])
-						box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
-						(startX, startY, endX, endY) = box.astype("int")
-
-						if CLASSES[idx] == "person":
-								cv2.rectangle(frame, (startX, startY), (endX, endY),
-															RED, 2)
-								nbPerson += 1
-								label = "{:.2f}%".format(confidence * 100)
-								y = startY - 15 if startY - 15 > 15 else startY + 15
-								cv2.putText(frame, label, (startX, y),
-														cv2.FONT_HERSHEY_SIMPLEX, 0.5, RED, 2)
-
-		label = "{}".format(nbPerson)
-		cv2.putText(frame, label, (10, 20),
-								cv2.FONT_HERSHEY_SIMPLEX, 0.5, RED, 2)
-
+		frame = detect_person(frame)
 		globalFrame = frame
 
 		# grab the current timestamp and draw it on the frame
@@ -186,7 +157,7 @@ if __name__ == '__main__':
 	ap.add_argument("-f", "--frame-count", type=int, default=32,
 		help="# of frames used to construct the background model")
 	ap.add_argument('-c', '--confidence', type=float, default=0.5,
-                help='minimum probability to filter weak detections')
+								help='minimum probability to filter weak detections')
 	args = vars(ap.parse_args())
 	# start a thread that will perform motion detection
 	t = threading.Thread(target=detect_motion, args=(

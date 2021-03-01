@@ -66,6 +66,11 @@ Camera with raspberry pi:
 - [OpenCV and python on raspberry pi](https://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/)
 
 Detect people:
+
+- [How to use MobileNet](https://www.pyimagesearch.com/2018/08/13/opencv-people-counter/)
+
+- [Object detection](https://www.pyimagesearch.com/2017/09/11/object-detection-with-deep-learning-and-opencv/)
+
 - https://www.pyimagesearch.com/2020/06/01/opencv-social-distancing-detector/
 
 - https://www.pyimagesearch.com/2018/08/13/opencv-people-counter/
