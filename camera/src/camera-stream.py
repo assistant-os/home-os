@@ -34,8 +34,8 @@ lock = threading.Lock()
 app = Flask(__name__)
 # initialize the video stream and allow the camera sensor to
 # warmup
-vs = VideoStream(usePiCamera=0).start()
-# vs = VideoStream(src=1).start()
+# vs = VideoStream(usePiCamera=0).start()
+vs = VideoStream(src=1).start()
 fps = FPS().start()
 
 time.sleep(2.0)
