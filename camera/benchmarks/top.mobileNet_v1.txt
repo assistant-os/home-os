@@ -1,10 +1,10 @@
-top - 20:35:06 up  1:15,  1 user,  load average: 3.90, 3.95, 3.17
-Tasks: 127 total,   1 running, 126 sleeping,   0 stopped,   0 zombie
-%Cpu(s): 87.5 us, 12.5 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
-MiB Mem :   3776.5 total,   3161.6 free,    268.4 used,    346.5 buff/cache
-MiB Swap:    100.0 total,    100.0 free,      0.0 used.   3410.7 avail Mem 
+top - 22:16:22 up  2:57,  1 user,  load average: 2.72, 1.18, 0.83
+Tasks: 131 total,   1 running, 130 sleeping,   0 stopped,   0 zombie
+%Cpu(s): 76.9 us, 16.7 sy,  0.0 ni,  6.4 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   3776.5 total,   3153.3 free,    271.7 used,    351.6 buff/cache
+MiB Swap:    100.0 total,    100.0 free,      0.0 used.   3407.4 avail Mem 
 
   PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
- 4810 pi        20   0  309672 128036  37500 S 364.7   3.3  77:32.27 python3
-  768 pi        20   0  228476  61192  27800 S  11.8   1.6   0:27.93 node
- 6269 pi        20   0   10184   2880   2500 R  11.8   0.1   0:00.05 top
+10763 pi        20   0  308368 127348  37376 S 335.3   3.3   3:56.42 python3
+  768 pi        20   0  227776  62136  27800 S  11.8   1.6   0:52.37 node
+10804 root      20   0       0      0      0 I  11.8   0.0   0:00.15 kworker/u8:3-mmal-vchiq

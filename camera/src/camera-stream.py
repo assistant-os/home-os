@@ -10,6 +10,7 @@ import time
 import cv2
 import os
 import numpy as np 
+from benchmark import Benchmark
 
 dirname = os.path.dirname(__file__)
 
@@ -32,11 +33,17 @@ globalFrame = None
 lock = threading.Lock()
 # initialize a flask object
 app = Flask(__name__)
+computationTiming = []
 # initialize the video stream and allow the camera sensor to
 # warmup
-# vs = VideoStream(usePiCamera=0).start()
-vs = VideoStream(src=1).start()
-fps = FPS().start()
+
+vs = None 
+if os.uname()[4][:3] == 'arm':
+	vs = VideoStream(usePiCamera=0).start()
+else:
+	vs = VideoStream(src=1).start()
+
+benchmark = Benchmark()
 
 time.sleep(2.0)
 
@@ -87,19 +94,22 @@ def detect_person(frame):
 	
 	return frame
 
-def detect_motion(frameCount, rotate):
+def compute_image(frameCount, rotate):
 	# grab global references to the video stream, output frame, and
 	# lock variables
 	global vs, globalFrame, lock
 
 	# loop over frames from the video stream
 	while True:
+		# time.sleep(2)
 		# read the next frame from the video stream, resize it,
 		# convert the frame to grayscale, and blur it
 		frame = vs.read()
 
 		frame = np.array(np.rot90(frame, k=2))
+		benchmark.pre()
 		frame = detect_person(frame)
+		benchmark.post()
 
 		# grab the current timestamp and draw it on the frame
 		timestamp = datetime.datetime.now()
@@ -109,9 +119,6 @@ def detect_motion(frameCount, rotate):
 
 
 		globalFrame = frame
-
-		# update the FPS counter
-		fps.update()
 
 
 
@@ -168,7 +175,7 @@ if __name__ == '__main__':
 								help='minimum probability to filter weak detections')
 	args = vars(ap.parse_args())
 	# start a thread that will perform motion detection
-	t = threading.Thread(target=detect_motion, args=(
+	t = threading.Thread(target=compute_image, args=(
 		args["frame_count"],args["rotate"]))
 	t.daemon = True
 	t.start()
@@ -177,6 +184,4 @@ if __name__ == '__main__':
 		threaded=True, use_reloader=False)
 # release the video stream pointer
 vs.stop()
-fps.stop()
-print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
-print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
+benchmark.stats()

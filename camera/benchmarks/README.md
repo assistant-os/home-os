@@ -15,19 +15,19 @@
 - algo architecture: mobileNet with caffee
 - details: compute all images
 
+
 ```
-[INFO] elapsed time: 32.92
-[INFO] approx. FPS: 0.24
+[INFO] elapsed time: 133.07
+[INFO] approx. FPS: 0.29
+[INFO] computations: count: 38, mean: 3.400s, std: 0.043
 ```
 
 With macbook 16"
 
-Processeur 6 cœurs Intel Core i7 de 9ᵉ génération à 2,6 GHz (jusqu’à 4,5 GHz avec Turbo Boost)
-32 Go de mémoire DDR4 à 2 666 MHz
-AMD Radeon Pro 5500M avec 4 Go de mémoire GDDR6
-
-
-
 ```
 [INFO] approx. FPS: 13.08
 ```
+
+
+- https://www.hackster.io/news/benchmarking-machine-learning-on-the-new-raspberry-pi-4-model-b-88db9304ce4
+- https://www.hackster.io/news/benchmarking-tensorflow-and-tensorflow-lite-on-the-raspberry-pi-43f51b796796
