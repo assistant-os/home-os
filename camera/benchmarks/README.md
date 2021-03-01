@@ -8,4 +8,14 @@
 
 ## Versions 
 
-- _top.mobileNet_v1.txt_: mobileNet with caffee, compute all images
+### Version 1
+
+- top ouput: _top.mobileNet_v1.txt_
+- hardware: running on raspberry
+- algo architecture: mobileNet with caffee
+- details: compute all images
+
+```
+[INFO] elapsed time: 32.92
+[INFO] approx. FPS: 0.24
+```

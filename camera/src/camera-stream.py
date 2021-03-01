@@ -1,4 +1,4 @@
-from imutils.video import VideoStream
+from imutils.video import VideoStream, FPS
 from flask import Response
 from flask import Flask
 from flask import render_template
@@ -36,6 +36,7 @@ app = Flask(__name__)
 # warmup
 vs = VideoStream(usePiCamera=0).start()
 # vs = VideoStream(src=1).start()
+fps = FPS().start()
 
 time.sleep(2.0)
 
@@ -99,13 +100,20 @@ def detect_motion(frameCount, rotate):
 
 		frame = np.array(np.rot90(frame, k=2))
 		frame = detect_person(frame)
-		globalFrame = frame
 
 		# grab the current timestamp and draw it on the frame
 		timestamp = datetime.datetime.now()
 		cv2.putText(frame, timestamp.strftime(
 			"%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10),
 			cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
+
+
+		globalFrame = frame
+
+		# update the FPS counter
+		fps.update()
+
+
 
 def generate():
 	# grab global references to the output frame and lock variables
@@ -169,3 +177,6 @@ if __name__ == '__main__':
 		threaded=True, use_reloader=False)
 # release the video stream pointer
 vs.stop()
+fps.stop()
+print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
+print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
