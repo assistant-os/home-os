@@ -49,16 +49,7 @@ python3 src/camera-stream.py --host 0.0.0.0 --port 8080
 
 ## Equipment 
 
-### Rasberry pi 
-
-  Raspberry Pi 4 B: Broadcom BCM2711, Quad core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz
-
-- [Specifications](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/)
-- [How to buy](https://www.amazon.ca/gp/product/B07W4JM192)
-
-### Camera 
-
-- [Camera with night vision](https://www.amazon.ca/gp/product/B076KCZRDS)
+cf [Hardware documentation](../docs/hardware.md)
 
 ## Datasets & algorithms 
 

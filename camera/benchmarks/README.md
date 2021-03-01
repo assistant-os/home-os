@@ -19,3 +19,15 @@
 [INFO] elapsed time: 32.92
 [INFO] approx. FPS: 0.24
 ```
+
+With macbook 16"
+
+Processeur 6 cœurs Intel Core i7 de 9ᵉ génération à 2,6 GHz (jusqu’à 4,5 GHz avec Turbo Boost)
+32 Go de mémoire DDR4 à 2 666 MHz
+AMD Radeon Pro 5500M avec 4 Go de mémoire GDDR6
+
+
+
+```
+[INFO] approx. FPS: 13.08
+```
