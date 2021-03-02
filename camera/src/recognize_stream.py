@@ -10,21 +10,13 @@ import time
 import cv2
 import os
 import numpy as np 
+
 from benchmark import Benchmark
+from person_detector import PersonDetector
 
 dirname = os.path.dirname(__file__)
 
-print("[INFO] loading model...")
-net = cv2.dnn.readNetFromCaffe(
-		os.path.join(dirname, '../models/MobileNetSSD_deploy.prototxt'),
-		os.path.join(dirname, '../models/MobileNetSSD_deploy.caffemodel'))
 
-CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
-					 "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
-					 "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
-					 "sofa", "train", "tvmonitor"]
-
-RED = (255, 0, 0)
 
 # initialize the output frame and a lock used to ensure thread-safe
 # exchanges of the output frames (useful when multiple browsers/tabs
@@ -33,9 +25,10 @@ globalFrame = None
 lock = threading.Lock()
 # initialize a flask object
 app = Flask(__name__)
-computationTiming = []
 # initialize the video stream and allow the camera sensor to
-# warmup
+
+benchmark = Benchmark()
+personDetector = PersonDetector()
 
 vs = None 
 if os.uname()[4][:3] == 'arm':
@@ -43,56 +36,14 @@ if os.uname()[4][:3] == 'arm':
 else:
 	vs = VideoStream(src=1).start()
 
-benchmark = Benchmark()
 
+# warmup
 time.sleep(2.0)
 
 @app.route("/")
 def index():
 	# return the rendered template
 	return render_template("index.html")
-
-def detect_person(frame):
-	frame = imutils.resize(frame, width=512)
-	(h, w) = frame.shape[:2]
-	blob = cv2.dnn.blobFromImage(cv2.resize(frame, (512, 512)), 0.007843, (512, 512), 127.5)
-
-	# pass the blob through the network and obtain the detections and predictions
-	net.setInput(blob)
-	detections = net.forward()
-
-	nbPerson = 0
-	confidences = []
-
-	# loop over the detections
-	for i in np.arange(0, detections.shape[2]):
-		# extract the confidence (i.e., probability) associated with
-		# the prediction
-		confidence = detections[0, 0, i, 2]
-
-		# filter out weak detections by ensuring the `confidence` is
-		# greater than the minimum confidence
-		if confidence > args["confidence"]:
-			# extract the index of the class label from the
-			# `detections`, then compute the (x, y)-coordinates of
-			# the bounding box for the object
-			idx = int(detections[0, 0, i, 1])
-			box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
-			(startX, startY, endX, endY) = box.astype("int")
-
-			if CLASSES[idx] == "person":
-				cv2.rectangle(frame, (startX, startY), (endX, endY), RED, 2)
-				nbPerson += 1
-				label = "{:.2f}%".format(confidence * 100)
-				y = startY - 15 if startY - 15 > 15 else startY + 15
-				cv2.putText(frame, label, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, RED, 2)
-
-
-		label = "{}".format(nbPerson)
-		cv2.putText(frame, label, (10, 20),
-								cv2.FONT_HERSHEY_SIMPLEX, 0.5, RED, 2)
-	
-	return frame
 
 def compute_image(frameCount, rotate):
 	# grab global references to the video stream, output frame, and
@@ -108,7 +59,7 @@ def compute_image(frameCount, rotate):
 
 		frame = np.array(np.rot90(frame, k=2))
 		benchmark.pre()
-		frame = detect_person(frame)
+		frame = personDetector.detect(frame, args["confidence"])
 		benchmark.post()
 
 		# grab the current timestamp and draw it on the frame
@@ -117,10 +68,7 @@ def compute_image(frameCount, rotate):
 			"%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10),
 			cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
 
-
 		globalFrame = frame
-
-
 
 def generate():
 	# grab global references to the output frame and lock variables

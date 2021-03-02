@@ -2,7 +2,9 @@
 
 ## Raspberry pi 
 
-Raspberry Pi 4 B: Broadcom BCM2711, Quad core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz
+Raspberry Pi 4 B: 
+- Broadcom BCM2711, Quad core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz
+- 4GB memory
 
 - [Specifications](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/)
 - [How to buy](https://www.amazon.ca/gp/product/B07W4JM192)

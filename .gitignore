@@ -4,5 +4,7 @@ activities.txt
 node_modules
 
 *.jpg
+*.avi
 
 __pycache__
+

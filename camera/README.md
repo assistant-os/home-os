@@ -43,7 +43,7 @@ sh ./scripts/install.sh # may fail
 ## Getting started
 
 ```shell
-python3 src/camera-stream.py --host 0.0.0.0 --port 8080
+python3 src/recognize_stream.py --host 0.0.0.0 --port 8080
 
 ```
 

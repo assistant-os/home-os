@@ -31,3 +31,13 @@ With macbook 16"
 
 - https://www.hackster.io/news/benchmarking-machine-learning-on-the-new-raspberry-pi-4-model-b-88db9304ce4
 - https://www.hackster.io/news/benchmarking-tensorflow-and-tensorflow-lite-on-the-raspberry-pi-43f51b796796
+
+### Version 2
+
+Prerecorded video
+
+```
+[INFO] elapsed time: 268.90
+[INFO] approx. FPS: 0.37
+[INFO] computations: count: 100, mean: 2.635s, std: 0.012
+```
