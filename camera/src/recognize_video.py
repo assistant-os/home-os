@@ -10,7 +10,7 @@ benchmark = Benchmark()
 personDetector = PersonDetector()
 
 
-vidcap = cv2.VideoCapture(os.path.join(dirname, '../video.avi'))
+vidcap = cv2.VideoCapture(os.path.join(dirname, '../benchmarks/datasets/video_recognize.avi'))
 success = True
 count = 0
 for x in range(100):

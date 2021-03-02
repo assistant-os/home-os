@@ -3,6 +3,8 @@ import cv2
 import os 
 import time
 
+dirname = os.path.dirname(__file__)
+
 video = None
 
 vs = None 
@@ -19,7 +21,8 @@ for x in range(1000):
   (h, w) = frame.shape[:2]
 
   if video == None:
-    video = cv2.VideoWriter('./video.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 10, (w, h))
+    filename = os.path.join(dirname, '../benchmarks/datasets/video.avi')
+    video = cv2.VideoWriter(filename, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 10, (w, h))
 
   video.write(frame)
 
