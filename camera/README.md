@@ -67,17 +67,19 @@ Detect people:
 
 - [How to use MobileNet](https://www.pyimagesearch.com/2017/09/11/object-detection-with-deep-learning-and-opencv/)
 - [Coco dataset](https://cocodataset.org/#home) used to train MobileNet
-
 - [How to use MobileNet](https://www.pyimagesearch.com/2018/08/13/opencv-people-counter/)
-
-
 - https://www.pyimagesearch.com/2020/06/01/opencv-social-distancing-detector/
 
 - https://www.pyimagesearch.com/2018/08/13/opencv-people-counter/
 - https://github.com/Sid2697/Object-Detection-MobileNet/blob/master/README.md
 - https://arxiv.org/abs/1704.04861
-- 
-## Brainstorm 
 
-- https://www.npmjs.com/package/opencv4nodejs: fail to install
-- https://www.npmjs.com/package/opencv: fail to install
+
+- [Stream python](https://github.com/jacksonliam/mjpg-streamer)
+
+## Benchmarks
+
+- https://www.hackster.io/news/benchmarking-machine-learning-on-the-new-raspberry-pi-4-model-b-88db9304ce4
+- https://www.hackster.io/news/benchmarking-tensorflow-and-tensorflow-lite-on-the-raspberry-pi-43f51b796796
+
+

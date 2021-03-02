@@ -16,7 +16,6 @@ class Benchmark:
 		self.fps.update()
 		afterComputation = datetime.datetime.now()
 		delta = afterComputation - self.beforeComputation
-		print('delta', delta)
 		deltaSeconds = delta.seconds + delta.microseconds /1E6
 		self.computationDurations.append(deltaSeconds)
 
