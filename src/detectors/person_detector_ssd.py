@@ -17,8 +17,8 @@ class PersonDetector:
 	def __init__(self):
 		print("[INFO] loading model...")
 		self.net = cv2.dnn.readNetFromCaffe(
-				os.path.join(dirname, '../models/MobileNetSSD_deploy.prototxt'),
-				os.path.join(dirname, '../models/MobileNetSSD_deploy.caffemodel'))
+				os.path.join(dirname, '../../models/MobileNetSSD/MobileNetSSD_deploy.prototxt'),
+				os.path.join(dirname, '../../models/MobileNetSSD/MobileNetSSD_deploy.caffemodel'))
 
 	
 	def detect(self, frame, confidenceRequired):

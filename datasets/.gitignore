@@ -1,0 +1,5 @@
+*.avi 
+*.mov
+*
+!README.md
+!.gitignore

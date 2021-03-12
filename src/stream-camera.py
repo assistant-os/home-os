@@ -11,7 +11,7 @@ import cv2
 import os
 import numpy as np 
 
-from benchmark import Benchmark
+from utils.benchmark import Benchmark
 
 # initialize the output frame and a lock used to ensure thread-safe
 # exchanges of the output frames (useful when multiple browsers/tabs
@@ -87,7 +87,7 @@ def video_feed():
 @app.route("/save", methods=['POST'])
 def save():
 	print("save")
-	cv2.imwrite('image.jpg', frame)
+	cv2.imwrite('image.jpg', globalFrame)
 	# return the response generated along with the specific media
 	# type (mime type)
 	return Response("{}",
