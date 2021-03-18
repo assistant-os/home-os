@@ -24,11 +24,11 @@ app = Flask(__name__)
 
 benchmark = Benchmark()
 
-vs = None 
+video = None 
 if os.uname()[4][:3] == 'arm':
-	vs = VideoStream(usePiCamera=0).start()
+	video = VideoStream(usePiCamera=0).start()
 else:
-	vs = VideoStream(src=1).start()
+	video = VideoStream(src=1).start()
 
 
 # warmup
@@ -42,14 +42,14 @@ def index():
 def compute_image(frameCount, rotate):
 	# grab global references to the video stream, output frame, and
 	# lock variables
-	global vs, globalFrame, lock
+	global video, globalFrame, lock
 
 	# loop over frames from the video stream
 	while True:
 		# time.sleep(2)
 		# read the next frame from the video stream, resize it,
 		# convert the frame to grayscale, and blur it
-		frame = vs.read()
+		frame = video.read()
 
 		benchmark.pre()
 		frame = np.array(np.rot90(frame, k=2))

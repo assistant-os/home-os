@@ -68,7 +68,7 @@ class Processor:
 		if self.recordingRaw:
 				self.recorder.record(rawFrame)
 		elif self.recording:
-				self.video.record(frame)
+				self.recorder.record(frame)
 
 processor = Processor()
 

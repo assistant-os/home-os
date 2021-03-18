@@ -17,7 +17,10 @@ class Recorder:
 			self.video = cv2.VideoWriter(filename, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 10, (width, height))
 			self.filename = filename
 
-	def record(self, frame):
+	def record(self, frame, filename = ""):
+		if (self.video == None):
+			self.start(frame, filename)
+
 		self.video.write(frame)
 
 	def stop(self):

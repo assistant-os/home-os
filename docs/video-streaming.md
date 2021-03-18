@@ -8,6 +8,8 @@
 - [How to stream camera to computer](https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/) to use picamera
 - [OpenCV and python on raspberry pi](https://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/)
 
+- [pi camera with opencv](https://picamera.readthedocs.io/en/release-1.10/recipes1.html)
+
 ### Flask 
 
 - [Stream video in http](https://www.pyimagesearch.com/2019/09/02/opencv-stream-video-to-web-browser-html-page/): useful to make video stream in http
@@ -19,6 +21,7 @@
 - [read multipart](https://stackoverflow.com/questions/21702477/how-to-parse-mjpeg-http-stream-from-ip-camera)
 - [How to read streaming](https://2.python-requests.org/en/latest/user/advanced/#streaming-requests)
 - https://github.com/psf/requests/issues/1554
+- [Capturing to a network stream](https://picamera.readthedocs.io/en/release-1.10/recipes1.html#capturing-to-a-network-stream)
 
 Also useful:
 
