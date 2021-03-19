@@ -23,6 +23,7 @@
 - [How to read streaming](https://2.python-requests.org/en/latest/user/advanced/#streaming-requests)
 - https://github.com/psf/requests/issues/1554
 - [Capturing to a network stream](https://picamera.readthedocs.io/en/release-1.10/recipes1.html#capturing-to-a-network-stream)
+- https://stackoverflow.com/questions/58293187/opencv-real-time-streaming-video-capture-is-slow-how-to-drop-frames-or-get-sync
 
 Also useful:
 
