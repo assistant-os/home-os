@@ -10,8 +10,14 @@ import time
 import cv2
 import os
 import numpy as np 
+from picamera import PiCamera
+import io
 
 from utils.benchmark import Benchmark
+
+
+resolution = (1920, 1088)
+
 
 # initialize the output frame and a lock used to ensure thread-safe
 # exchanges of the output frames (useful when multiple browsers/tabs
@@ -24,11 +30,13 @@ app = Flask(__name__)
 
 benchmark = Benchmark()
 
-video = None 
-if os.uname()[4][:3] == 'arm':
-	video = VideoStream(usePiCamera=0, resolution=(1920,1080)).start()
-else:
-	video = VideoStream(src=1, resolution=(1920,1080)).start()
+camera = PiCamera()
+camera.resolution = resolution
+camera.start_preview()
+# if os.uname()[4][:3] == 'arm':
+# 	video = VideoStream(usePiCamera=0, resolution=(1920,1080)).start()
+# else:
+# 	video = VideoStream(src=1, resolution=(1920,1080)).start()
 
 
 # warmup
@@ -42,18 +50,20 @@ def index():
 def compute_image(frameCount, rotate):
 	# grab global references to the video stream, output frame, and
 	# lock variables
-	global video, globalFrame, lock
-
-	# loop over frames from the video stream
+	global video, globalFrame, lock, camera
+	stream = io.BytesIO()
 	while True:
-		# time.sleep(2)
-		# read the next frame from the video stream, resize it,
-		# convert the frame to grayscale, and blur it
-		frame = video.read()
-
 		benchmark.pre()
+		camera.capture(stream, format='jpeg')
+		stream.seek(0)
+		data = np.frombuffer(stream.getvalue(), dtype=np.uint8)
+		frame = cv2.imdecode(data, 1)
+		
+		frame = frame[:, :, ::-1]
 		frame = np.array(np.rot90(frame, k=2))
 		benchmark.post()
+		stream.truncate()
+		stream.seek(0)
 
 		globalFrame = frame
 

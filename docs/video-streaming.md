@@ -9,6 +9,7 @@
 - [OpenCV and python on raspberry pi](https://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/)
 
 - [pi camera with opencv](https://picamera.readthedocs.io/en/release-1.10/recipes1.html)
+- https://picamera.readthedocs.io/en/release-1.10/recipes1.html#recording-video-to-a-file
 
 ### Flask 
 
