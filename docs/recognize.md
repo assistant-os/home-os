@@ -33,12 +33,23 @@ When it comes to deep learning-based object detection there are three primary ob
 - https://github.com/opencv/opencv/blob/master/samples/dnn/action_recognition.py
 - https://github.com/shuvamdas/human-activity-recognition
 
+- [Kinetics](https://deepmind.com/research/open-source/kinetics)
+
+## Recognize pose
+
+- [Top and Best Computer Vision Human-Pose Estimation Projects](https://medium.datadriveninvestor.com/top-and-best-computer-vision-human-pose-estimation-projects-186d04204dde) 
+
+### OpenPose
+
+- [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose)
+- https://learnopencv.com/multi-person-pose-estimation-in-opencv-using-openpose/
+- https://learnopencv.com/deep-learning-based-human-pose-estimation-using-opencv-cpp-python/
+
+### PifPaf
+
+- [OpenPifPaf](https://github.com/vita-epfl/openpifpaf)
+
 ## Benchmarks
 
 - https://www.hackster.io/news/benchmarking-machine-learning-on-the-new-raspberry-pi-4-model-b-88db9304ce4
 - https://www.hackster.io/news/benchmarking-tensorflow-and-tensorflow-lite-on-the-raspberry-pi-43f51b796796
-
-
-## Datasets
-
-- [Kinetics](https://deepmind.com/research/open-source/kinetics)
