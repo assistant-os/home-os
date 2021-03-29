@@ -8,6 +8,10 @@ When it comes to deep learning-based object detection there are three primary ob
 -   [You Only Look Once (YOLO)](https://arxiv.org/abs/1506.02640) (Redmon and Farhadi, 2015) : very fast and not very accurate, __~40fps__
 -   [Single Shot Detectors (SSDs)](https://arxiv.org/abs/1512.02325) (Liu et al., 2015) : compromise, more accurate, __~24fps__
 
+
+- [List of models](https://github.com/onnx/models#image_classification)
+
+
 ## Detect people 
 
 ### Yolo
@@ -34,6 +38,19 @@ When it comes to deep learning-based object detection there are three primary ob
 - https://github.com/shuvamdas/human-activity-recognition
 
 - [Kinetics](https://deepmind.com/research/open-source/kinetics)
+
+- https://github.com/kenshohara/3D-ResNets-PyTorch
+- https://github.com/kenshohara/video-classification-3d-cnn-pytorch
+- https://github.com/imatge-upc/activitynet-2016-cvprw use tensorflow
+
+### 3d ResNets
+
+```
+python3 -m util_scripts.generate_video_jpgs ../datasets/test/video/ ../datasets/test/kinetics_videos/jpg kinetics --size 480
+python3 -m util_scripts.kinetics_json ../datasets/test/annotations 700 ../datasets/test/kinetics_videos/jpg/default2/video jpg ../datasets/test/kinetics.json
+python3 main.py --root_path ../datasets/test/ --video_path kinetics_videos/jpg --annotation_path kinetics.json --result_path results --dataset kinetics --resume_path results/r3d50_K_200ep.pth --model_depth 50 --n_classes 700 --n_threads 4 --no_train --no_val --inference --output_topk 5 --inference_batch_size 1 --no_cuda
+```
+
 
 ## Recognize pose
 

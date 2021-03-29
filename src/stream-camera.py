@@ -12,12 +12,15 @@ import os
 import numpy as np 
 
 from utils.benchmark import Benchmark
+from utils.recorder import Recorder
 
 # initialize the output frame and a lock used to ensure thread-safe
 # exchanges of the output frames (useful when multiple browsers/tabs
 # are viewing the stream)
 globalFrame = None
 lock = threading.Lock()
+recorder = Recorder()
+isRecording = False
 # initialize a flask object
 app = Flask(__name__)
 # initialize the video stream and allow the camera sensor to
@@ -54,8 +57,13 @@ def compute_image(frameCount, rotate):
 		benchmark.pre()
 		frame = np.array(np.rot90(frame, k=2))
 		benchmark.post()
-
 		globalFrame = frame
+
+def record_image():
+	global recorder
+	while True:
+		if isRecording:
+			recorder.record(globalFrame)
 
 def generate():
 	# grab global references to the output frame and lock variables
@@ -86,10 +94,22 @@ def video_feed():
 
 @app.route("/save", methods=['POST'])
 def save():
-	print("save")
 	cv2.imwrite('image.jpg', globalFrame)
 	# return the response generated along with the specific media
 	# type (mime type)
+	return Response("{}",
+				status=200,
+				mimetype='application/json')
+
+@app.route("/record", methods=['POST'])
+def record():
+	global isRecording, recorder, globalFrame
+	if isRecording:
+		isRecording = False
+		recorder.stop()
+	else:
+		recorder.start(globalFrame, os.path.join(os.path.dirname(__file__), '../datasets/video.recorded.avi'))
+		isRecording = True
 	return Response("{}",
 				status=200,
 				mimetype='application/json')
@@ -114,9 +134,12 @@ if __name__ == '__main__':
 		args["frame_count"],args["rotate"]))
 	t.daemon = True
 	t.start()
+	t2 = threading.Thread(target=record_image)
+	t2.daemon = True
+	t2.start()
 	# start the flask app
 	app.run(host=args["host"], port=args["port"], debug=True,
 		threaded=True, use_reloader=False)
 # release the video stream pointer
-vs.stop()
+video.stop()
 benchmark.stats()

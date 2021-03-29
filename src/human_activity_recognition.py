@@ -71,4 +71,5 @@ while True:
 
 		if key == ord("q"):
 			recorder.stop()
+			cv2.destroyAllWindows()
 			break

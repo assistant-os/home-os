@@ -7,6 +7,7 @@ class Recorder:
 
 	def __init__(self):
 		self.video = None
+		self.isRecording = False
 
 	def start(self, frame, filename):
 			(height, width) = frame.shape[:2]
@@ -16,6 +17,7 @@ class Recorder:
 
 			self.video = cv2.VideoWriter(filename, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 10, (width, height))
 			self.filename = filename
+			print("start record")
 
 	def record(self, frame, filename = ""):
 		if (self.video == None):
@@ -24,5 +26,5 @@ class Recorder:
 		self.video.write(frame)
 
 	def stop(self):
-		self.video.release()
 		print("Video saved in ", self.filename)
+		# self.video.release()

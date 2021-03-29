@@ -8,9 +8,17 @@
   <h1>Pi Video Surveillance</h1>
   <img src="{{ url_for('video_feed') }}">
   <button id="save">Save</button>
+  <button id="record">Record</button>
   <script>
     document.getElementById('save').addEventListener('click', () => {
       fetch("{{ url_for('save') }}", {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      })
+        .then(response => response.json())
+        .then(data => console.log(data));
+    })
+    document.getElementById('record').addEventListener('click', () => {
+      fetch("{{ url_for('record') }}", {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
       })
         .then(response => response.json())
