@@ -17,12 +17,21 @@
         .then(response => response.json())
         .then(data => console.log(data));
     })
+
+    let isRecording = false
+
     document.getElementById('record').addEventListener('click', () => {
       fetch("{{ url_for('record') }}", {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
       })
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => {
+
+          console.log(data)
+          isRecording = !isRecording;
+
+          document.getElementById('record').innerText = isRecording ? 'Stop recording' : 'Record'
+        });
     })
   </script>
 </body>
