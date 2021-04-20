@@ -2,8 +2,7 @@ import os
 import cv2
 import imutils
 import numpy as np 
-
-dirname = os.path.dirname(__file__)
+from .get_path import getPath
 
 CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
 							"bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
@@ -12,14 +11,13 @@ CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
 
 RED = (255, 0, 0)
 
-class PersonDetector:
+class Detector:
 
 	def __init__(self):
 		print("[INFO] loading model...")
 		self.net = cv2.dnn.readNetFromCaffe(
-				os.path.join(dirname, '../../models/MobileNetSSD/MobileNetSSD_deploy.prototxt'),
-				os.path.join(dirname, '../../models/MobileNetSSD/MobileNetSSD_deploy.caffemodel'))
-
+			getPath('MobileNetSSD/MobileNetSSD_deploy.prototxt'),
+			getPath('MobileNetSSD/MobileNetSSD_deploy.caffemodel'))
 	
 	def detect(self, frame, confidenceRequired):
 		frame = imutils.resize(frame, height=300)

@@ -2,30 +2,25 @@ import os
 import cv2
 import imutils
 import numpy as np 
+from .get_path import getPath
 
 # https://www.pyimagesearch.com/2018/11/12/yolo-object-detection-with-opencv/
-
-currentDirname = os.path.dirname(__file__)
-
-yoloDirname = os.path.join(currentDirname, '../../models/yolo-coco/')
-
 # [List of classes](https://github.com/pjreddie/darknet/blob/master/data/coco.names)
 
 threshold = 0.3
 
-class PersonDetector:
+class Detector:
 
 	def __init__(self):
-		labelsPath = os.path.join(yoloDirname,"coco.names")
+		labelsPath = getPath("yolo-coco/coco.names")
 		self.LABELS = open(labelsPath).read().strip().split("\n")
 		np.random.seed(42)
 		self.COLORS = np.random.randint(0, 255, size=(len(self.LABELS), 3),
 			dtype="uint8")
 
-
 		# derive the paths to the YOLO weights and model configuration
-		weightsPath = os.path.join(yoloDirname, "yolov3.weights")
-		configPath = os.path.join(yoloDirname, "yolov3.cfg")
+		weightsPath = getPath('yolo-coco/yolov3.weights')  
+		configPath = getPath('yolo-coco/yolov3.cfg')
 		# load our YOLO object detector trained on COCO dataset (80 classes)
 		print("[INFO] loading YOLO from disk...")
 		self.net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)

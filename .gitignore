@@ -4,6 +4,7 @@ node_modules
 
 *.jpg
 *.avi
+*.mp4
 
 __pycache__
 
