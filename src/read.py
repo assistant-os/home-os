@@ -6,6 +6,7 @@ import argparse
 from detectors.pose_recognizer import Detector as PoseDetector
 from detectors.person_detector_yolo import Detector as YoloDetector
 from detectors.person_detector_ssd import Detector as SsdDetector
+from detectors.human_activity_recognizer import Detector as HumanActivityDetector
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--input", type=str, default="",
@@ -16,7 +17,7 @@ args = vars(ap.parse_args())
 print("[INFO] accessing video stream...")
 video = cv2.VideoCapture(args["input"] if args["input"] else 1)
 
-detector = SsdDetector()
+detector = HumanActivityDetector()
 
 while True:
 

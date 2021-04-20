@@ -1,7 +1,3 @@
-# USAGE
-# python human_activity_reco.py --model resnet-34_kinetics.onnx --classes action_recognition_kinetics.txt --input example_activities.mp4
-# python human_activity_reco.py --model resnet-34_kinetics.onnx --classes action_recognition_kinetics.txt
-
 import numpy as np
 import argparse
 import imutils
@@ -9,27 +5,25 @@ import sys
 import cv2
 from utils.recorder import Recorder
 import os 
+from detectors.get_path import getPath
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-m", "--model", required=True,
-	help="path to trained human activity recognition model")
-ap.add_argument("-c", "--classes", required=True,
-	help="path to class labels file")
-ap.add_argument("-i", "--input", type=str, default="",
+ap.add_argument("--video", type=str, default="",
 	help="optional path to video file")
 args = vars(ap.parse_args())
 
 recorder = Recorder()
 
-CLASSES = open(args["classes"]).read().strip().split("\n")
+labelsPath = getPath("kinetics-400/action_recognition_kinetics.txt")
+CLASSES = open(labelsPath).read().strip().split("\n")
 SAMPLE_DURATION = 16
 SAMPLE_SIZE = 112
 
 print("[INFO] loading human activity recognition model...")
-net = cv2.dnn.readNet(args["model"])
+net = cv2.dnn.readNet(getPath("kinetics-400/resnet-34_kinetics.onnx"))
 
 print("[INFO] accessing video stream...")
-video = cv2.VideoCapture(args["input"] if args["input"] else 0)
+video = cv2.VideoCapture(args["video"] if args["video"] else 1)
 
 while True:
 	
