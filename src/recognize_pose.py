@@ -51,7 +51,7 @@ while True:
 
     (grabbed, frame) = video.read()
 
-    frame = imutils.resize(frame, width=512)
+    # frame = imutils.resize(frame, width=512)
     (height, width) = frame.shape[:2]
 
     blob = cv2.dnn.blobFromImage(frame, 1.0 / 255, (width, height), (0, 0, 0), swapRB=False, crop=False)

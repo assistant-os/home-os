@@ -47,7 +47,7 @@ def index():
 	# return the rendered template
 	return render_template("index.html")
 
-def compute_image(frameCount, rotate):
+def compute_image():
 	# grab global references to the video stream, output frame, and
 	# lock variables
 	global video, globalFrame, lock, camera

@@ -22,9 +22,9 @@ class PersonDetector:
 
 	
 	def detect(self, frame, confidenceRequired):
-		frame = imutils.resize(frame, width=512)
+		frame = imutils.resize(frame, height=300)
 		(h, w) = frame.shape[:2]
-		blob = cv2.dnn.blobFromImage(cv2.resize(frame, (512, 512)), 0.007843, (512, 512), 127.5)
+		blob = cv2.dnn.blobFromImage(frame, 0.007843, (512, 512), 127.5)
 
 		# pass the blob through the network and obtain the detections and predictions
 		self.net.setInput(blob)

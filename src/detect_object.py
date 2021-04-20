@@ -44,8 +44,8 @@ class Processor:
 		benchmark.post()
 
 		(height, width) = frame.shape[:2]
-		if self.recording or self.recordingRaw:
-			cv2.circle(frame,(width - 2 * RADIUS, 2 * RADIUS), RADIUS, RED, -1)
+		# if self.recording or self.recordingRaw:
+		# 	cv2.circle(frame,(width - 2 * RADIUS, 2 * RADIUS), RADIUS, RED, -1)
 
 		cv2.imshow('Video', frame)
 		key = cv2.waitKey(1) & 0xFF
@@ -53,7 +53,7 @@ class Processor:
 			exit(0)
 		elif key == ord("r"):
 			if not self.recording:
-				self.recorder.start(frame, os.path.join(os.path.dirname(__file__), '../datasets/video.process.avi'))
+				self.recorder.start(frame, os.path.join(os.path.dirname(__file__), '../datasets/tests/video.recorded.avi'))
 				self.recording = True
 			else:
 				self.recorder.stop()
