@@ -10,3 +10,4 @@ __pycache__
 
 activitynet-2016-cvprw
 3D-ResNets-PyTorch
+scripts/*.txt
